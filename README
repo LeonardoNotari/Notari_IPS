@@ -1,5 +1,5 @@
-Per poter funzionare questo codice deve essere nominato 'script.py', all'interno della stessa directory deve esserci un eseguibile di exiftool scaricabile
-al seguente link: https://exiftool.org/ che deve essere rinominato 'exiftool.exe'.
+Per poter funzionare questo codice deve essere nominato 'script.py', all'interno della stessa directory deve esserci un eseguibile di exiftool caricato in questa repositori o
+scaricabile al seguente link: https://exiftool.org/ che deve essere rinominato 'exiftool.exe'.
 Per la lettura dei metadati delle immagini: le immagini devono essere organizzate in cartelle in base al modello che le ha generate, dopodiché queste cartelle devono essere
 inserite in una directory 'images'.
 
