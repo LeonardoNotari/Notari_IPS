@@ -1,3 +1,6 @@
+@author: leono
+"""
+
 # -*- coding: utf-8 -*-
 """
 Created on Wed Apr 24 12:14:48 2024
@@ -63,11 +66,10 @@ for m in models_names:
                     tag_value = tag + ' ' + return_hash(bits_value)
                 image_tags.append(tag)
                 image_tags_value.append(tag_value)
-                if 'File' not in tag and 'ExifTool' not in tag and 'Image Height' not in tag and 'Image Width' not in tag:
-                    if tag not in tags:
-                        tags.append(tag)
-                    if tag_value not in tags_value:
-                        tags_value.append(tag_value)
+                if tag not in tags:
+                    tags.append(tag)
+                if tag_value not in tags_value:
+                    tags_value.append(tag_value)
             images.append(Img(image_name, m, image_tags, image_tags_value))
         except Exception as e:
             print("An exception has occurred:" + e)
@@ -145,6 +147,7 @@ for i in range(len(models)):
     plt.xlabel('Likelyhood')
     plt.ylabel('Tags')
     plt.tight_layout()
+    # Use the follow lines to save the plots
     #directory_path = path + '\\Plots\\' + models[i]        
     #plt.savefig(directory_path)
     plt.show()
