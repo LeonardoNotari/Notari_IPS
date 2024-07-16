@@ -1,0 +1,105 @@
+Per poter funzionare questo codice deve essere nominato 'script.py', all'interno della stessa directory deve esserci un eseguibile di exiftool scaricabile
+al seguente link: https://exiftool.org/ che deve essere rinominato 'exiftool.exe'.
+Per la lettura dei metadati delle immagini: le immagini devono essere organizzate in cartelle in base al modello che le ha generate, dopodiché queste cartelle devono essere
+inserite in una directory 'images'.
+
+images_____
+          |
+          |--model_name1___
+          |               |
+          |               |--img1
+          |               |
+          |               |--img2 ...   
+          |
+          |--model_name2___
+                          |
+                          |--img1
+                          |
+                          |--img2 ...  
+
+
+
+Il codice è funzionante con il sistema operativo windows, mentre si devono effettuare le seguenti modifiche per i sistemi linux:
+-alla riga 46 sostituire '\\' con '/'
+-alla riga 51 sostituire '\\' con '/'
+-alla riga 155 sostituire '\\' con '/'
+
+Il codice è suddiviso in 3 celle che svolgono le seguenti funzioni:
+Cella 1
+Importa le librerie necessarie per la gestione dei file, l'esecuzione di comandi esterni, il calcolo degli hash e la creazione di grafici.
+Definisce una classe per rappresentare un'immagine con attributi: nome, modello, tag e valori dei tag.
+Estrazione dei Metadati:
+Imposta i percorsi per le immagini e i modelli.
+Per ogni modello, legge i nomi delle immagini, estrae i metadati usando l'eseguibile exiftool con una chiamata a riga di comando,
+li decodifica e li memorizza nella lista delle immagini.
+in caso di un metadato non decodificato e quindi binario utilizza la funzione return_hash: che converte una stringa di bit in un hash MD5.
+Ha quindi come risultati una lista di oggett immagine, una lista di modelli e una lista di tutti i tag trovati (anche associati al valore).
+
+Cella 2
+Calcolo della Probabilità dei Tag:
+Per ogni modello e per ogni tag, calcola la probabilità che un'immagine del modello contenga quel tag (PwG) e la probabilità che un'immagine
+di un altro modello contenga quel tag (PwnG).
+Calcola un valore di likelihood (L) basato sul rapporto di queste probabilità e memorizza i risultati in una lista (result_tag).
+Calcolo della Probabilità dei Valori dei Tag:
+Esegue un processo simile al precedente, ma per tag concatenati con il proprio valore, anziché per i soli tag, e memorizza i risultati in un'altra lista (result_tag_valore).
+
+Cella 3
+Visualizzazione dei Risultati:
+Per ogni modello, ordina i risultati dei tag in base alla likelihood.
+Crea un grafico a barre orizzontali per visualizzare i tag e i loro valori di likelihood (logaritmici) per ogni modello.
+Configura il grafico e lo visualizza.
+In sintesi, il codice legge le immagini da diverse cartelle, estrae i metadati usando exiftool, calcola le probabilità dei tag e dei loro valori per ogni modello di immagine,
+e infine visualizza questi dati in grafici a barre.
+
+
+////////////////// english version
+
+To make this code run, it needs to be named 'script.py'. In the same directory, there should be an executable of exiftool which can be downloaded from the
+following link: https://exiftool.org/ and should be renamed 'exiftool.exe'.
+For reading image metadata: images should be organized into folders based on the model that generated them,
+and these folders should be placed inside a directory named 'images'.
+
+
+images_____
+          |
+          |--model_name1___
+          |               |
+          |               |--img1
+          |               |
+          |               |--img2 ...   
+          |
+          |--model_name2___
+                          |
+                          |--img1
+                          |
+                          |--img2 ...  
+
+The code works on Windows operating systems, while the following changes need to be made for Linux systems:
+
+On line 46, replace '\' with '/'
+On line 51, replace '\' with '/'
+On line 155, replace '\' with '/'
+The code is divided into 3 cells that perform the following functions:
+
+Cell 1
+Imports the necessary libraries for file management, execution of external commands, hash calculations, and graph creation.
+Defines a class to represent an image with attributes: name, model, tags, and tag values.
+Metadata Extraction:
+Sets the paths for images and models.
+For each model, reads the image names, extracts the metadata using the exiftool executable with a command line call, decodes it, and stores it in the image list.
+In case of undecoded and thus binary metadata, uses the return_hash function: which converts a bit string into an MD5 hash.
+Results in a list of image objects, a list of models, and a list of all found tags (including associated values).
+Cell 2
+Tag Probability Calculation:
+For each model and for each tag, calculates the probability that an image of the model contains that tag (PwG) and the probability that an image
+of another model contains that tag (PwnG).
+Calculates a likelihood value (L) based on the ratio of these probabilities and stores the results in a list (result_tag).
+Tag Value Probability Calculation:
+Performs a similar process as the previous one, but for tags concatenated with their values, instead of just the tags, and stores the results in another list (result_tag_valore).
+Cell 3
+Results Visualization:
+For each model, sorts the tag results based on the likelihood.
+Creates a horizontal bar chart to visualize the tags and their likelihood (logarithmic) values for each model.
+Configures the chart and displays it.
+In summary, the code reads images from various folders, extracts metadata using exiftool, calculates tag and tag value probabilities for each image model,
+and finally visualizes these data in bar charts.
